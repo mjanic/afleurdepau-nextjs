@@ -13,48 +13,28 @@ import {
 import { Button } from "@/components/ui/button";
 import { SlidersHorizontal } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-
-import React from "react";
-
+import React, { useEffect } from "react";
 import { Product, Parfume, Category } from "@prisma/client";
+import useProductStore from "@/lib/store";
+
 interface ProductWithParfumeAndCategory extends Product {
     parfume: Parfume;
     category: Category;
 }
 interface FilterdrawerProps {
     products: ProductWithParfumeAndCategory[];
-    setFilteredProducts: React.Dispatch<React.SetStateAction<ProductWithParfumeAndCategory[]>>;
-    selectedCategories: string[];
-    setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
-    selectedParfumes: string[];
-    setSelectedParfumes: React.Dispatch<React.SetStateAction<string[]>>;
-
+    pickedParfume: string;
 }
 
-const Filterdrawer: React.FC<FilterdrawerProps> = ({ 
-    products, 
-    setFilteredProducts, 
-    selectedCategories,
-    setSelectedCategories,
-    selectedParfumes,
-    setSelectedParfumes
-}) => {
+const Filterdrawer: React.FC<FilterdrawerProps> = ({ products, pickedParfume}) => {
 
-    const handleToggleCategories = (value:string) => {
-        setSelectedCategories((prevSelected) =>
-          prevSelected.includes(value)
-            ? prevSelected.filter((item) => item !== value)
-            : [...prevSelected, value]
-        ); 
-    };
+    const { selectedCategories, 
+            selectedParfumes, 
+            setFilteredProducts, 
+            setSelectedCategories, 
+            setSelectedParfumes }
+        = useProductStore()
 
-    const handleToggleParfumes = (value:string) => {
-        setSelectedParfumes((prevSelected) =>
-          prevSelected.includes(value)
-            ? prevSelected.filter((item) => item !== value)
-            : [...prevSelected, value]
-        );
-    };
     const applyChanges = () => {
         let filtered = products;
     
@@ -72,6 +52,17 @@ const Filterdrawer: React.FC<FilterdrawerProps> = ({
     
         setFilteredProducts(filtered);
     };
+
+    useEffect(()=> {
+        let pfiltered = products;
+        if (pickedParfume) {
+            pfiltered = pfiltered.filter(product => 
+                pickedParfume.includes(product.parfume.name)
+            );
+        }
+        setFilteredProducts(pfiltered);
+        console.log("set to picked parfume")
+    }, [])
 
     return(
         <div className="mx-8 flex justify-end">

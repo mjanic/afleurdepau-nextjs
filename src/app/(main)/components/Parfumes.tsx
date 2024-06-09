@@ -1,13 +1,16 @@
 import Pinksection from "@/app/(main)/components/ui/Pinksection";
 import prisma from "@/lib/db";
+import Link from "next/link";
 
 export default async function Parfumes () {
     const parfumes = await prisma.parfume.findMany();
     const parfumeArray = parfumes.map( (parfume) => {
           return (
             <div key={parfume.id} className='parfume flex flex-col items-center justify-center'>
+                <Link href={{pathname: '/shop', query: {parfume: parfume.name}}}>
                 <img className="rounded-[176px/130px] cursor-pointer w-10/12" src={`${parfume.imgUrl.substring(6)}`} alt={parfume.name}/>
                 <h2 className={`mb-4`}>{parfume.name}</h2>
+                </Link>
             </div>
           )      
     }) 

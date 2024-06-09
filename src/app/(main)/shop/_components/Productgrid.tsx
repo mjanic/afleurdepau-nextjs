@@ -1,18 +1,11 @@
 "use client";
 
-import { Product, Parfume, Category } from "@prisma/client";
 import Productcard from "./Productcard";
+import useProductStore from "@/lib/store";
 
+const Productgrid = () => {
 
-interface ProductWithParfumeAndCategory extends Product {
-    parfume: Parfume;
-    category: Category;
-}
-interface ProductGridProps {
-    filteredProducts: ProductWithParfumeAndCategory[];
-}
-
-const Productgrid: React.FC<ProductGridProps> = ({ filteredProducts }) => {
+    const {filteredProducts} = useProductStore()
     
     const productArray = filteredProducts.map((product) => (
         <Productcard key={product.id} {...product} />
