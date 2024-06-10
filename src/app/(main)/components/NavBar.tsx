@@ -34,11 +34,11 @@ export default function NavBar() {
                 <div className='dropdown relative flex justify-center items-center'>
                     <FontAwesomeIcon className='text-paubrown m-1 cursor-pointer' icon={faBars} onClick={toggleMenu} />
                     <div className={`dropdown-menu flex p-1 flex-col absolute left-0 top-full bg-paubeige border border-paubrown md:hidden ${!isMenuOpen && 'hidden'}`}>
-                        <Link className={`text-paubrown m-1 ${pathname === '/' && 'font-bold'}`}
+                        <Link onClick={toggleMenu} className={`text-paubrown m-1 ${pathname === '/' && 'font-bold'}`}
                         href="/"><h3>Accueil</h3></Link>
-                        <Link className={`text-paubrown m-1 ${pathname === '/shop' && 'font-bold'}`}
+                        <Link onClick={toggleMenu} className={`text-paubrown m-1 ${pathname === '/shop' && 'font-bold'}`}
                         href="/shop"><h3>Boutique</h3></Link>
-                        <Link className={`text-paubrown m-1 ${pathname === '/aboutus' && 'font-bold'}`}
+                        <Link onClick={toggleMenu} className={`text-paubrown m-1 ${pathname === '/aboutus' && 'font-bold'}`}
                         href="/aboutus"><h3>À propos</h3></Link>
                     </div>
                 </div>                

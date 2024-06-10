@@ -59,6 +59,7 @@ const Filterdrawer: React.FC<FilterdrawerProps> = ({ products, pickedParfume}) =
             pfiltered = pfiltered.filter(product => 
                 pickedParfume.includes(product.parfume.name)
             );
+            setSelectedParfumes([pickedParfume]);
         }
         setFilteredProducts(pfiltered);
         console.log("set to picked parfume")
