@@ -29,6 +29,8 @@ export default function NavBar() {
                     href="/shop"><h3>Boutique</h3></Link>
                     <Link className={`text-paubrown m-1 ${pathname === '/aboutus' && 'font-bold'}`}
                     href="/aboutus"><h3>À propos</h3></Link>
+                    <Link className={`text-paubrown m-1 ${pathname === '/faq' && 'font-bold'}`}
+                    href="/faq"><h3>FAQ</h3></Link>
             </div>
             <div className='mini-menu relative md:hidden justify-left items-center pl-8 flex '>
                 <div className='dropdown relative flex justify-center items-center'>
@@ -40,6 +42,8 @@ export default function NavBar() {
                         href="/shop"><h3>Boutique</h3></Link>
                         <Link onClick={toggleMenu} className={`text-paubrown m-1 ${pathname === '/aboutus' && 'font-bold'}`}
                         href="/aboutus"><h3>À propos</h3></Link>
+                        <Link onClick={toggleMenu} className={`text-paubrown m-1 ${pathname === '/faq' && 'font-bold'}`}
+                        href="/faq"><h3>FAQ</h3></Link>
                     </div>
                 </div>                
                     <FontAwesomeIcon className='text-paubrown m-1' icon={faMagnifyingGlass}/>
