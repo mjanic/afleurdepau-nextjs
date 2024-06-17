@@ -1,17 +1,25 @@
 "use client";
 
 import { formatCurrency } from "@/lib/formatters";
-import { Parfume, Product } from "@prisma/client";
+import { Parfume, Product, Category } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import useProductStore from "@/lib/store";
 
-interface ProductWithParfume extends Product {
+interface ProductWithParfumeAndCategory extends Product {
     parfume: Parfume;
+    category: Category;
 }
 
-export default function Productcard (product: ProductWithParfume) {
+export default function Productcard (product: ProductWithParfumeAndCategory) {
 
-    const priceValue = formatCurrency(product.priceInCents/100)
+    const {addedToCart, setAddedToCart} = useProductStore();
+
+    const addToCart = (product: ProductWithParfumeAndCategory) => {
+        const setCart = new Set(addedToCart);
+        setCart.add(product);
+        setAddedToCart(Array.from(setCart));
+    }
 
     return (
         <Link href={`/shop/${product.id}`}>
@@ -34,14 +42,14 @@ export default function Productcard (product: ProductWithParfume) {
                 </div>
             </div>
             <button 
-                onClick={(e)=>{ e.preventDefault(); console.log('addToCart')}} 
+                onClick={(e) => {addToCart(product); e.preventDefault()}} 
                 className="bg-paupink w-full text-white my-1 py-2 lg:hidden">
                 ajouter au panier +
             </button>
             <div className="flex flex-col text-center">
                 <h1 className='mx-1'>{product.name}</h1>
                 <p className='mx-1'>{product.parfume.name}</p>
-                <h2 className='mx-1'>{priceValue}</h2>
+                <h2 className='mx-1'>{formatCurrency(product.priceInCents/100)}</h2>
             </div>
             
         </div>

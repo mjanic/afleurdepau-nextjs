@@ -3,11 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import CartSheet from "./CartSheet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
@@ -62,7 +61,7 @@ export default function NavBar() {
             <div className='nav-searchbar relative flex justify-end items-center pr-8'>
                 <FontAwesomeIcon className='text-paubrown m-1 hidden md:block' icon={faMagnifyingGlass} /> 
                 <FontAwesomeIcon className='text-paubrown m-1' icon={faUser} />
-                <FontAwesomeIcon className='text-paubrown m-1' icon={faCartShopping} />
+                <CartSheet/>
             </div>
         </div>
     )
