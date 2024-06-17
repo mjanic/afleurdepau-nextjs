@@ -10,7 +10,7 @@ export default function CartItemGrid () {
     return (
         <div className="grid grid-cols-1 m-2 gap-1 max-h-60 overflow-auto"> 
             {addedToCart.map( product => (
-                <CartItem product={product}/>
+                <CartItem key={product.id} product={product}/>
             ))}   
         </div>
     )

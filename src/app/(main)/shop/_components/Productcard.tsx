@@ -16,9 +16,13 @@ export default function Productcard (product: ProductWithParfumeAndCategory) {
     const {addedToCart, setAddedToCart} = useProductStore();
 
     const addToCart = (product: ProductWithParfumeAndCategory) => {
-        const setCart = new Set(addedToCart);
-        setCart.add(product);
-        setAddedToCart(Array.from(setCart));
+        const idS = addedToCart.map(item => item.id);
+        if (idS.includes(product.id)) {
+        } else {
+            const setCart = new Set (addedToCart);
+            setCart.add(product);
+            setAddedToCart(Array.from(setCart))
+        }
     }
 
     return (
@@ -34,7 +38,7 @@ export default function Productcard (product: ProductWithParfumeAndCategory) {
                 <div className="absolute bottom-0 left-0 h-full w-full flex justify-center opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 focus:outline-none">
                     <div className="flex w-full items-end">
                         <button 
-                            onClick={(e)=>{ e.preventDefault(); console.log('addToCart')}} 
+                            onClick={(e) => {addToCart(product); e.preventDefault()}}  
                             className="bg-paulightpink w-full text-white py-2 hidden lg:block">
                             ajouter au panier +
                         </button>
