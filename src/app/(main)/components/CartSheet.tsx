@@ -7,7 +7,6 @@ import {
   } from "@/components/ui/sheet";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import Pinksection from "./ui/Pinksection";
 import Image from "next/image";
 import CartItemGrid from "./CartItemGrid";
 import useProductStore from "@/lib/store";

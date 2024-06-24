@@ -27,13 +27,17 @@ interface FilterdrawerProps {
 }
 
 const Filterdrawer: React.FC<FilterdrawerProps> = ({ products, pickedParfume}) => {
-
+    
     const { selectedCategories, 
             selectedParfumes, 
             setFilteredProducts, 
             setSelectedCategories, 
             setSelectedParfumes }
-        = useProductStore()
+    = useProductStore()
+
+    const categories = Array.from(new Set(products.map(product => product.category.name)))
+
+    const parfumes = Array.from(new Set(products.map(product => product.parfume.name)))
 
     const applyChanges = () => {
         let filtered = products;
@@ -63,7 +67,9 @@ const Filterdrawer: React.FC<FilterdrawerProps> = ({ products, pickedParfume}) =
             setFilteredProducts(pfiltered);
             console.log("set to picked parfume")
         }
-        
+        if (selectedCategories.length === 0 && selectedParfumes.length === 0) {
+            setFilteredProducts(products);
+        }
     }, [])
 
     return(
@@ -82,12 +88,12 @@ const Filterdrawer: React.FC<FilterdrawerProps> = ({ products, pickedParfume}) =
                                 <DrawerDescription>Selectioner des produits par leurs categorie</DrawerDescription>
                             </DrawerHeader>
                             <ToggleGroup type="multiple" variant="outline" value={selectedCategories} onValueChange={setSelectedCategories}>
-                                {products.map( product => (
+                                {categories.map( (category, index) => (
                                     <ToggleGroupItem 
-                                        key={product.category.id} 
-                                        value={product.category.name}
+                                        key={index} 
+                                        value={category}
                                     >
-                                        {product.category.name}
+                                        {category}
                                     </ToggleGroupItem>
                                 ))}
                             </ToggleGroup>
@@ -98,12 +104,12 @@ const Filterdrawer: React.FC<FilterdrawerProps> = ({ products, pickedParfume}) =
                                 <DrawerDescription>Selectioner des produits par leurs parfum</DrawerDescription>
                             </DrawerHeader>
                             <ToggleGroup type="multiple" variant="outline" value={selectedParfumes} onValueChange={setSelectedParfumes}>
-                                {products.map( product => (
+                                {parfumes.map( (parfume, index) => (
                                     <ToggleGroupItem 
-                                        key={product.parfume.id} 
-                                        value={product.parfume.name}
+                                        key={index} 
+                                        value={parfume}
                                     >
-                                        {product.parfume.name}
+                                        {parfume}
                                     </ToggleGroupItem>
                                 ))}
                             </ToggleGroup>
